@@ -1,11 +1,11 @@
 Package: easyrdd
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Contains methods for implementing Regression Discontinuity Designs
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Date: 2020-11-17
+Author: person("Samuel", "Gailliot", email = "samuel.gailliot@stat.tamu.edu", role = c("aut", "cre"))
+Maintainer: <samuel.gailliot@stat.tamu.edu>
+Description: The goal for this package is to perform estimation for single assignment RDD (both sharp and fuzzy) and implement optimal bandwidth selection using Imbens-Kalyanaraman method in an easy to use package.
+License: GPL-3
 Encoding: UTF-8
 LazyData: true
