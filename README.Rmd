@@ -1,0 +1,21 @@
+---
+title: "README"
+author: "Samuel Gailliot"
+date: "11/18/2020"
+output: pdf_document
+---
+## Summary:
+The regression discontinuity design (Rdd) is a statistical model commonly used by economists and policy analysts to determine the causal effect of interventions by exploiting knowledge of the rules determining their implementation. It estimates average treatment effect by comparing observations lying on either side of a policy cutoff . For example, the dangers of drinking for young people in the United States have been examined by comparing monthly death rates of of people from ages 19 to 23.
+
+## Intended Functionality:
+EasyRdd will be a user friendly package for implementing regression discontinuity analysis. While the approach of the RD design is intuitive the statistical details are more complicated than they might first appear, not even to mention the additional issue of coding the data analysis. EasyRdd will allow practitioners with minimal programming experience to analyze their own RD designs. It will also include high quality documentation to answer questions users may have about the package.
+The goal for the package is to offer methods for sharp and fuzzy RD, tests for significance, multiple methods for choosing bin widths when smoothing data and a simple plotting function. The package should be able to accept data provided by the user as well as contain an example data set. The reference used when deciding which methods to include will be “A Practical Guide to Regression Discontinuity.”
+Should time permit I would like to build a shiny app to accompany the package or expand my skills beyond base R and use ggplot2 for all plotting.
+
+## Sources:
+Imbens, Guido W., and Thomas Lemieux. "Regression discontinuity designs: A guide to practice." Journal of econometrics 142.2 (2008): 615-635.
+
+Angrist, Joshua D., and Jörn-Steffen Pischke. Mostly harmless econometrics: An empiricist's companion. Princeton university press, 2008.
+
+Jacob, Robin, et al. "A practical guide to regression discontinuity." MDRC (2012).
+
