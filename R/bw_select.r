@@ -1,7 +1,17 @@
+#' @title Bandwidth Selector
+#'
+#' @description This file contains code to implement Imbens-Kalyanaraman optimal bandwidth selection for RDD
+#'
+#' @param X Nx1 vector containing running variable
+#' @param Y Nx1 vector containing response variable
+#' @param cutpoint Location of discontinuity.
+#' @param verbose Logical indicator whether to print more information to terminal. Default is FALSE.
+#' @param kernal Sting indicating which kernal to use. Options are "triangular", "rectangular", "epanechnikov", "quartic", "triweight", "tricube", "gaussian", and "cosine".
 # This file will contain I-K bandwidth selection method
 
 opt_bw <- function (X, Y, cutpoint = NULL, verbose = FALSE, kernel = "triangular")
 {
+  # This code is modified version of IKbandwidth code in rdd package.
   sub <- complete.cases(X) & complete.cases(Y)
   X <- X[sub]
   Y <- Y[sub]
@@ -93,4 +103,4 @@ opt_bw <- function (X, Y, cutpoint = NULL, verbose = FALSE, kernel = "triangular
   return(optbw)
 }
 
-opt_bw(x,y)
+
