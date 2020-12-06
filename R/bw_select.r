@@ -1,17 +1,20 @@
 #' @title Bandwidth Selector
 #'
-#' @description This file contains code to implement Imbens-Kalyanaraman optimal bandwidth selection for RDD
+#' @description opt_bw calculates the Imbens-Kalyanaraman optimal bandwidth for local linear regression for RDD. This is a data-driven, asymptotically optimal choice of smoothing parameter. Conditions for asymptotic optimality (smoothness and iid X,Y) and description of the algorithm can be found in the referenced paper.
 #'
 #' @param X Nx1 vector containing running variable
 #' @param Y Nx1 vector containing response variable
 #' @param cutpoint Location of discontinuity.
 #' @param verbose Logical indicator whether to print more information to terminal. Default is FALSE.
 #' @param kernal Sting indicating which kernal to use. Options are "triangular", "rectangular", "epanechnikov", "quartic", "triweight", "tricube", "gaussian", and "cosine".
-# This file will contain I-K bandwidth selection method
+#' @return Return optimal bandwidth
+#' @references Imbens, Guido and Karthik Kalyanaraman. (2009) "Optimal Bandwidth Choice for the regression discontinuity estimator," NBER Working Paper Series. 14726.
+#' @export
 
 opt_bw <- function (X, Y, cutpoint = NULL, verbose = FALSE, kernel = "triangular")
 {
   # This code is modified version of IKbandwidth code in rdd package.
+  # I have added comments so that I may better understand the process.
   sub <- complete.cases(X) & complete.cases(Y)
   X <- X[sub]
   Y <- Y[sub]
