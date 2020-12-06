@@ -46,6 +46,12 @@
 #' Cattaneo, M. D., B. Frandsen, and R. Titiunik. 2015. Randomization Inference in the Regression Discontinuity Design: An Application to the Study of Party Advantages in the U.S. Senate. Journal of Causal Inference 3(1): 1-24.
 #'
 #' @export
+#'
+#' @examples
+#' X <- runif(1000, -1, 1)
+#' Y <- 10 + 5*X + 3*(X>=0)+rnorm(1000)
+#' rd_plot(Y,X)
+
 
 rd_plot <- function(Y, X, cutpoint = 0, bin_method = "esmv", kernel_method = "uni", ci = NULL,
                     title = NULL, x.lab = NULL, y.lab = NULL, x.lim = NULL, y.lim = NULL){

@@ -12,6 +12,11 @@
 #' @author Samuel Gailliot, Texas A (and) M University, College Station, TX. samuel.gailliot@stat.tamu.edu
 #' @references Imbens, Guido and Karthik Kalyanaraman. (2009) "Optimal Bandwidth Choice for the regression discontinuity estimator," NBER Working Paper Series. 14726.
 #' @export
+#'
+#' @examples
+#' X <- runif(1000, -1, 1);
+#' Y <- 10 + 5*X + 3*(X>=0)+rnorm(1000);
+#' opt_bw(X,Y)
 
 opt_bw <- function (X, Y, cutpoint = NULL, verbose = FALSE, kernel = "triangular")
 {
