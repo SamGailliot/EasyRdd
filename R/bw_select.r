@@ -22,7 +22,7 @@ opt_bw <- function (X, Y, cutpoint = NULL, verbose = FALSE, kernel = "triangular
 {
   # This code is modified version of IKbandwidth code in rdd package.
   # I have added comments so that I may better understand the process.
-  sub <- complete.cases(X) & complete.cases(Y)
+  sub <- stats::complete.cases(X) & stats::complete.cases(Y)
   X <- X[sub]
   Y <- Y[sub]
   Nx <- length(X)
@@ -38,7 +38,7 @@ opt_bw <- function (X, Y, cutpoint = NULL, verbose = FALSE, kernel = "triangular
     if (!(typeof(cutpoint) %in% c("integer", "double")))
       stop("Cutpoint must be of a numeric type")
   }
-  h1 <- 1.84 * sd(X) * Nx^(-1/5)
+  h1 <- 1.84 * stats::sd(X) * Nx^(-1/5)
   left <- X >= (cutpoint - h1) & X <= cutpoint
   right <- X > cutpoint & X <= (cutpoint + h1)
   Nl <- sum(left)
@@ -48,17 +48,17 @@ opt_bw <- function (X, Y, cutpoint = NULL, verbose = FALSE, kernel = "triangular
   fbarx <- (Nl + Nr)/(2 * Nx * h1)
   varY <- (sum((Y[left] - Ybarl)^2) + sum((Y[right] - Ybarr)^2))/(Nl +
                                                                     Nr)
-  medXl <- median(X[X <= cutpoint])
-  medXr <- median(X[X > cutpoint])
+  medXl <- stats::median(X[X <= cutpoint])
+  medXr <- stats::median(X[X > cutpoint])
   Nl <- sum(X < cutpoint)
   Nr <- sum(X >= cutpoint)
   cX <- X - cutpoint
   if (sum(X[left] > medXl) == 0 | sum(X[right] < medXr) ==
       0)
     stop("Insufficient data in vicinity of the cutpoint to calculate bandwidth.")
-  mod <- lm(Y ~ I(X >= cutpoint) + poly(cX, 3, raw = T), subset = (X >=
+  mod <- stats::lm(Y ~ I(X >= cutpoint) + poly(cX, 3, raw = T), subset = (X >=
                                                                      medXl & X <= medXr))
-  m3 <- 6 * coef(mod)[5]
+  m3 <- 6 * stats::coef(mod)[5]
   h2l <- 3.56 * (Nl^(-1/7)) * (varY/(fbarx * max(m3^2, 0.01)))^(1/7)
   h2r <- 3.56 * (Nr^(-1/7)) * (varY/(fbarx * max(m3^2, 0.01)))^(1/7)
   left <- (X >= (cutpoint - h2l)) & (X < cutpoint)
@@ -67,10 +67,10 @@ opt_bw <- function (X, Y, cutpoint = NULL, verbose = FALSE, kernel = "triangular
   Nr <- sum(right)
   if (Nl == 0 | Nr == 0)
     stop("Insufficient data in vicinity of the cutpoint to calculate bandwidth.")
-  mod <- lm(Y ~ poly(cX, 2, raw = T), subset = right)
-  m2r <- 2 * coef(mod)[3]
-  mod <- lm(Y ~ poly(cX, 2, raw = T), subset = left)
-  m2l <- 2 * coef(mod)[3]
+  mod <- stats::lm(Y ~ poly(cX, 2, raw = T), subset = right)
+  m2r <- 2 * stats::coef(mod)[3]
+  mod <- stats::lm(Y ~ poly(cX, 2, raw = T), subset = left)
+  m2l <- 2 * stats::coef(mod)[3]
   rl <- 720 * varY/(Nl * (h2l^4))
   rr <- 720 * varY/(Nr * (h2r^4))
   if (kernel == "triangular") {
