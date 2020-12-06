@@ -3,7 +3,7 @@
 #' @description rd_plot calls the powerful function rdplot from rdrobust but makes only the most important options available to the user to make the function easier to use.
 #'
 #' @param Y Nx1 vector containing dependent variable
-#' @param Y Nx1 vector containing running variable (forcing variable)
+#' @param X Nx1 vector containing running variable (forcing variable)
 #' @param cutpoint Location of discontinuity.
 #' @param bin_method specifies the procedure to select the number of bins. Options are:
 #'

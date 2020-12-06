@@ -6,8 +6,10 @@
 #' @param Y Nx1 vector containing response variable
 #' @param cutpoint Location of discontinuity.
 #' @param verbose Logical indicator whether to print more information to terminal. Default is FALSE.
-#' @param kernal Sting indicating which kernal to use. Options are "triangular", "rectangular", "epanechnikov", "quartic", "triweight", "tricube", "gaussian", and "cosine".
+#' @param kernel Sting indicating which kernel to use. Options are "triangular", "rectangular", "epanechnikov", "quartic", "triweight", "tricube", "gaussian", and "cosine".
 #' @return Return optimal bandwidth
+#'
+#' @author Samuel Gailliot, Texas A (and) M University, College Station, TX. samuel.gailliot@stat.tamu.edu
 #' @references Imbens, Guido and Karthik Kalyanaraman. (2009) "Optimal Bandwidth Choice for the regression discontinuity estimator," NBER Working Paper Series. 14726.
 #' @export
 

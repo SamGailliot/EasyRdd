@@ -5,7 +5,11 @@ Version: 0.1.0
 Date: 2020-11-17
 Author: person("Samuel", "Gailliot", email = "samuel.gailliot@stat.tamu.edu", role = c("aut", "cre"))
 Maintainer: <samuel.gailliot@stat.tamu.edu>
-Description: The goal for this package is to perform estimation for single assignment RDD (both sharp and fuzzy) and implement optimal bandwidth selection using Imbens-Kalyanaraman method in an easy to use package.
+Description: This package contains a set of three functions for easily implementing analysis of regression discontinuity models.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
+Imports: 
+    rdrobust,
+    rdd
+RoxygenNote: 7.1.1
