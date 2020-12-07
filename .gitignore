@@ -2,4 +2,4 @@
 .Rhistory
 .RData
 .Ruserdata
-.R/data_gen.r
+R/data_gen.r
