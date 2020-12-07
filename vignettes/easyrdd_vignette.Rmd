@@ -1,0 +1,82 @@
+---
+title: "How to use easyrdd"
+author: "Samuel Gailliot"
+date: "December 5, 2020"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{How to use easyrdd}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.width=10, fig.height=6.667
+)
+```
+
+## Overview
+easyrdd is a package designed to make powerful tools for performing regression discontinuity design analysis easier to use. It is made up of three functions.
+
+**opt_bw**: This function calculates an optimal choice of the smoothing parameter (bandwidth) for the regression discontinuity estimator following the Imbens-Kalyanaraman method. This method is entirely data driven and depends only on choice of kernel. Kernel options are: "triangular", "rectangular", "epanechnikov", "quartic", "triweight", "tricube", "gaussian", and "cosine".
+
+**rd_estimate**: This function is built on the powerful function rdrobust (which the package rdrobust is built around). Many of the options are suppressed for the user to reduce possibility for confusion. This function implements local polynomial Regression Discontinuity estimators with bias-corrected confidence intervals and inference procedures. These methods were developed in Calonico, Cattaneo and Titiunik (2014a), Calonico, Cattaneo and Farrell (2018), Calonico, Cattaneo, Farrell and Titiunik (2019), and Calonico, Cattaneo and Farrell (2020).
+
+The generic function summary is modified to work on the object returned by rd_estimate.
+
+**rd_plot**: This function is built on the powerful function rdplot from the package rdrobust. Again, many of the options are suppressed for the user to avoid confusion. This function implements several data-driven regression discontinuity plots, using either evenly-spaced or quantile spaced partitioning. Two types of regression discontinuity plots can be constructed. 1. RD plots with binned sample means that trace out the regression function, and 2. RD plots with binned sample means mimicking the underlying variability of the data.
+
+## Example
+
+We first generate some toy data and load our package.
+
+```{r, fig.align='center'}
+library(easyrdd)
+X <- runif(1000, -1, 1)
+Y <- 10 + 5*X + 3*(X>=0)+rnorm(1000)
+plot(X, Y)
+```
+
+We can clearly see the discontinuity at X = 0.
+We now use opt_bw to calculate Imbens-Kalyanaraman optimal bandwidth.
+
+```{r}
+bw <- opt_bw(X, Y, cutpoint = 0)
+bw
+```
+
+Different kernels may obtain different results
+
+```{r}
+bw <- opt_bw(X, Y, cutpoint = 0, kernel = "epanechnikov")
+bw
+```
+
+We now estimate the size and significance of the discontinuity at X = 0 using rd_estimate.
+
+```{r}
+fit1 <- rd_estimate(Y, X, cutpoint = 0, bw_method = "mserd", kernel_method = "triangular")
+summary(fit1)
+```
+
+Clearly the discontinuity is statistically significant. Lets looks at the fitted regression using the command rd_plot.
+
+```{r}
+rd_plot(Y, X, cutpoint = 0, bin_method = "esmv", kernel_method = "triangular")
+```
+
+We can add confidence intervals to the plot using the option ci
+
+```{r}
+rd_plot(Y, X, cutpoint = 0, bin_method = "esmv", kernel_method = "triangular", ci = 95)
+```
+
+We may change binning from evenly spaced to quantile spaced by using a different binning method.
+
+```{r}
+rd_plot(Y, X, cutpoint = 0, bin_method = "qs", kernel_method = "epanechnikov", ci = 95)
+```
+
+You may notice that the plot has changed. Changes in binning and choice of fit can significantly alter estimates of discontinuity size.
